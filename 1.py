@@ -1,10 +1,17 @@
 import sys
+import os
 
 def get_dir(argv):
-	defdir = "../Files"
+	defdir = "E:\\VU\Python\Files"
 	if len(argv) > 1:
-		return 'exist'
+		return argv[1]
 	else:
-		return 'wth dude?'
+		return defdir
+		
+def get_files(listdir):
+	dirs = os.listdir(direct)
+	return dirs
 	
-print(get_dir(sys.argv))
+direct = get_dir(sys.argv)
+files = get_files(os.listdir)
+
