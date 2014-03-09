@@ -3,6 +3,7 @@ import os
 
 allchars={}
 allwords={}
+result = open('result.txt', 'w')
 
 def get_dir(argv):
 	defdir = "E:\\VU\Python\Files\\"
@@ -22,6 +23,7 @@ def get_dirlist(file_list, directory):
 	return dirlist
 	
 def get_chars(file):
+	result.write('Characters: \n')
 	fd = open (file)
 	data = fd.read()
 	charlist={}
@@ -34,8 +36,13 @@ def get_chars(file):
 			allchars[char] = 1
 		else:
 			allchars[char] += 1
+			
+	for c,n in charlist.items():
+		result.write(c+': '+str(n)+'\n')	
+	result.write('\n')
 	
 def get_words(file):
+	result.write('Words: \n')
 	fd = open (file)
 	data = fd.read();
 	data = data.replace('.', '').replace('-', ' ').replace(',', ' ')
@@ -50,15 +57,27 @@ def get_words(file):
 		else:
 			allwords[word] += 1
 			
-	#for w,n in wordlist.items():
-	#	print (w, n)	
+	for w,n in wordlist.items():
+		result.write(w+': '+str(n)+'\n')
+	result.write('\n')		
 	
 direct = get_dir(sys.argv)
 files = get_files(os.listdir)
 directory = get_dirlist(files, direct)
+
 for file in directory:
+	result.write('File from directory: ' + file + '\n\n')
 	get_chars(file)
 	get_words(file)
+	result.write('\n')
 	
-for w,n in allwords.items():
-	print (w, n)	
+result.write('Characters from all files:\n')
+
+for g,n in allchars.items():
+	result.write(g+': '+str(n)+'\n')	
+	
+result.write('\nWords:\n')
+
+for g,n in allwords.items():
+	result.write(g+': '+str(n)+'\n')	
+		
