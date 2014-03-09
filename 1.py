@@ -1,6 +1,9 @@
 import sys
 import os
 
+allchars={}
+allwords={}
+
 def get_dir(argv):
 	defdir = "E:\\VU\Python\Files\\"
 	if len(argv) > 1:
@@ -27,18 +30,25 @@ def get_chars(file):
 			charlist[char] = 1
 		else:
 			charlist[char] += 1
-	#for c,n in charlist.items():
-	#	print (c, n)
-	return file
+		if char not in allchars:
+			allchars[char] = 1
+		else:
+			allchars[char] += 1
 	
 def get_words(file):
 	fd = open (file)
+	data = fd.read();
+	data = data.replace('.', '').replace('-', ' ').replace(',', ' ')
 	wordlist={}
-	for word in fd.read().split():
+	for word in data.split():
 		if word not in wordlist:
 			wordlist[word] = 1
 		else:
 			wordlist[word] += 1
+		if word not in allwords:
+			allwords[word] = 1
+		else:
+			allwords[word] += 1
 			
 	#for w,n in wordlist.items():
 	#	print (w, n)	
@@ -49,5 +59,6 @@ directory = get_dirlist(files, direct)
 for file in directory:
 	get_chars(file)
 	get_words(file)
-
-
+	
+for w,n in allwords.items():
+	print (w, n)	
